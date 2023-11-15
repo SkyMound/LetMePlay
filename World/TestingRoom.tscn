@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dfjl2fyk2cq8i"]
+
+[node name="TestingRoom" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(0, 0, 19, 0, 19, 109, 63, 109, 63, 92, 85, 92, 124, 123, 163, 123, 163, 146, 185, 146, 185, 104, 249, 104, 268, 94, 309, 94, 309, 0, 320, 0, 320, 179, 0, 179)
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D/CollisionPolygon2D"]
