@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://cj8hmvgyi8oo2"]
+[gd_scene load_steps=18 format=3 uid="uid://cj8hmvgyi8oo2"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_58gd6"]
 [ext_resource type="Texture2D" uid="uid://bl5qee72mymd2" path="res://Assets/Sunny-land-files/Graphical Assets/spritesheets/player.png" id="2_w5eoq"]
+[ext_resource type="Script" path="res://Player/fishingaction.gd" id="3_obpxd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o21y3"]
 size = Vector2(13, 20)
@@ -130,3 +131,7 @@ animation = &"jump"
 [node name="CoyoteJumpTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="fishingaction" type="Sprite2D" parent="."]
+position = Vector2(0, 30)
+script = ExtResource("3_obpxd")
