@@ -761,7 +761,7 @@ size = Vector2(111, 82)
 size = Vector2(113, 79)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n210m"]
-size = Vector2(75, 31)
+size = Vector2(75, 5)
 
 [node name="Node2D" type="Node2D"]
 
@@ -809,7 +809,7 @@ shape = SubResource("RectangleShape2D_123p0")
 [node name="fishingArea" type="Area2D" parent="TileMap"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/fishingArea"]
-position = Vector2(-6.5, -60.5)
+position = Vector2(-6.5, -47.5)
 shape = SubResource("RectangleShape2D_n210m")
 
 [node name="Player" parent="." instance=ExtResource("6_jv2us")]
