@@ -47,6 +47,3 @@ func startCooldownPeche():
 		instance.queue_free()
 	instanceCircle = circle.instantiate()
 	add_child(instanceCircle)
-
-
-	

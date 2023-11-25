@@ -27,14 +27,13 @@ func init(x,y):
 	Yorigin = y
 	
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if(is_instance_valid($"../..")):
 		getOtherFish()
 		
 		if hamecon.isFishing and not isAttract and not fishOnHook:
-			var my_random_number = rng.randf_range(-100.0, 100.0)
+			var my_random_number = rng.randf_range(-1000.0, 1000.0)
 			if int(my_random_number) == 0 and verifNoOtherFish():
 				goToHook()
 		elif isAttract and hamecon.isFishing and not fishOnHook:
@@ -88,7 +87,6 @@ func verifNoOtherFish():
 
 func die():
 	if fishOnHook:
-		print("je meurs")
 		queue_free()
 
 func _on_area_2d_area_entered(area):

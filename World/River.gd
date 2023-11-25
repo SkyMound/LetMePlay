@@ -10,7 +10,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if len(get_tree().get_nodes_in_group("fish"))<3:
-		createFish(rng.randf_range(-50.0, 50.0),rng.randf_range(-20.0, 20.0))
+		createFish(rng.randf_range(-30.0, 30.0),rng.randf_range(-5.0, 20.0))
 
 func createFish(x,y):
 	instance = fish.instantiate()
@@ -18,10 +18,8 @@ func createFish(x,y):
 	instance.init(x,y)
 	add_child(instance)
 	pass
-	
 
 func _on_area_2d_body_entered(body):
 	if body.name == "Fish":
 		if(is_instance_valid($"../..")):
 			body.get_node("../../").changeDirection()
-	
