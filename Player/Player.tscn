@@ -1,10 +1,25 @@
-[gd_scene load_steps=17 format=3 uid="uid://cj8hmvgyi8oo2"]
+[gd_scene load_steps=28 format=3 uid="uid://cj8hmvgyi8oo2"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_58gd6"]
+[ext_resource type="Texture2D" uid="uid://c5v87c0sxs7pc" path="res://Assets/OwnAssets/player/attack/player-attack.png" id="2_dfkqo"]
 [ext_resource type="Texture2D" uid="uid://bl5qee72mymd2" path="res://Assets/Sunny-land-files/Graphical Assets/spritesheets/player.png" id="2_w5eoq"]
+[ext_resource type="Script" path="res://Player/PlayerAttack.gd" id="4_i6grp"]
+[ext_resource type="Texture2D" uid="uid://dbpmw60dgruw" path="res://Assets/OwnAssets/player/attack/rod-attack.png" id="5_mlsfu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o21y3"]
 size = Vector2(13, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vj1ef"]
+atlas = ExtResource("2_dfkqo")
+region = Rect2(0, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8oopo"]
+atlas = ExtResource("2_dfkqo")
+region = Rect2(33, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ka4c"]
+atlas = ExtResource("2_dfkqo")
+region = Rect2(66, 0, 33, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_thpfl"]
 atlas = ExtResource("2_w5eoq")
@@ -56,6 +71,23 @@ region = Rect2(165, 32, 33, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rm0pa"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vj1ef")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8oopo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ka4c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ka4c")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 10.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_thpfl")
@@ -113,6 +145,50 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1qe1"]
+atlas = ExtResource("5_mlsfu")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vw61o"]
+atlas = ExtResource("5_mlsfu")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4dcw0"]
+atlas = ExtResource("5_mlsfu")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7s4s"]
+atlas = ExtResource("5_mlsfu")
+region = Rect2(0, 0, 96, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h1q3k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l1qe1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vw61o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4dcw0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4dcw0")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w7s4s")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
 [node name="Player" type="CharacterBody2D"]
 floor_constant_speed = true
 floor_snap_length = 3.0
@@ -125,8 +201,24 @@ shape = SubResource("RectangleShape2D_o21y3")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_rm0pa")
-animation = &"jump"
+animation = &"attack"
+frame = 1
+frame_progress = 0.76746
 
 [node name="CoyoteJumpTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+script = ExtResource("4_i6grp")
+
+[node name="AnimatedRod" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, -13)
+sprite_frames = SubResource("SpriteFrames_h1q3k")
+animation = &"attack"
+frame_progress = 0.700354
+
+[connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_looped"]
+[connection signal="timeout" from="AttackTimer" to="AttackTimer" method="_on_timeout"]
