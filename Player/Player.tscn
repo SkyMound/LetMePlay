@@ -220,5 +220,13 @@ sprite_frames = SubResource("SpriteFrames_h1q3k")
 animation = &"attack"
 frame_progress = 0.700354
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 20.0
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.21
+drag_right_margin = 0.11
+
 [connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_looped"]
 [connection signal="timeout" from="AttackTimer" to="AttackTimer" method="_on_timeout"]
