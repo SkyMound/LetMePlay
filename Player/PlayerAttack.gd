@@ -1,7 +1,5 @@
 extends Timer
 
-@onready var animated_sprite_2d = $"../AnimatedSprite2D"
-@onready var animated_rod = $"../AnimatedRod"
 @onready var attack_timer = $"."
 @onready var player = $".."
 

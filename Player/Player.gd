@@ -12,9 +12,11 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 var isAttacking = false
 
-@onready var animated_sprite_2d = $AnimatedSprite2D
+var facing = 1;
+
+@onready var animation_player = $AnimationPlayer
 @onready var coyote_jump_timer = $CoyoteJumpTimer
-@onready var animated_rod = $AnimatedRod
+@onready var player = $"."
 
 
 func _physics_process(delta):
@@ -60,23 +62,23 @@ func apply_friction(input_axis,delta) :
 
 func update_animations(input_axis) :
 	if(not isAttacking && input_axis != 0 ) :
-		animated_sprite_2d.flip_h = input_axis < 0
-		animated_rod.flip_h = input_axis < 0
+		if(velocity.x > 0):
+			scale.x = scale.y * 1
+		elif(velocity.x < 0):
+			scale.x = scale.y * -1
+		#player.set_scale(Vector2(input_axis,player.scale.y))
 	if(isAttacking) :
-		animated_sprite_2d.play("attack")
-		animated_rod.play("attack")
+		animation_player.play("attack")
 	elif not is_on_floor() :
 		if velocity.y < 0 :
-			animated_sprite_2d.play("jump")
+			animation_player.play("jump")
 		else :
-			animated_sprite_2d.play("falling")
+			animation_player.play("fall")
 	elif input_axis != 0 :
-		animated_sprite_2d.play("run")
+		animation_player.play("run")
 	else :
-		animated_sprite_2d.play("idle")
+		animation_player.play("idle")
 			
-
-func _on_animated_sprite_2d_animation_looped():
-	if (isAttacking) :
+func _on_animation_player_animation_finished(anim_name):
+	if (anim_name=="attack") :
 		isAttacking = false 
-		animated_rod.play("default")
