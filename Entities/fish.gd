@@ -38,6 +38,7 @@ func _process(delta):
 				goToHook()
 		elif isAttract and hamecon.isFishing and not fishOnHook:
 			translate(directionToHook.normalized()/2)
+			
 		if not fishOnHook and not isAttract:
 			if(int(position.y) != int(Yorigin)):
 				var directionX = Xorigin-position.x
@@ -49,7 +50,6 @@ func _process(delta):
 					#print(directionVec)
 					scale.y = -1
 			else:
-				isAttract = false
 				rotation = 0
 				scale.y = 1
 				if right:
