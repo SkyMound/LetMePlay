@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://btm5pyybjtb16"]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cs2dy6bt1w6ve"]
 
 [ext_resource type="Shader" path="res://eau.gdshader" id="1_1crme"]
 

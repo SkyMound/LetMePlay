@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bj2fiaxl1k5kx"]
+[gd_scene load_steps=6 format=3 uid="uid://bf0iear5vehgw"]
 
 [ext_resource type="Script" path="res://World/River.gd" id="1_dvv3p"]
-[ext_resource type="Material" uid="uid://btm5pyybjtb16" path="res://World/testeau.tres" id="1_lw0sd"]
+[ext_resource type="Material" uid="uid://cs2dy6bt1w6ve" path="res://World/testeau.tres" id="1_lw0sd"]
 [ext_resource type="Texture2D" uid="uid://0fljs76ht7im" path="res://icon.svg" id="2_ef3v0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7okhu"]
