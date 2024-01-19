@@ -92,7 +92,6 @@ func update_animations(input_axis) :
 func _on_animation_player_animation_finished(anim_name):
 	if (anim_name=="attack") :
 		isAttacking = false
-		AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), true)
 
 func _on_fishing_area_body_entered(body):
 	if(body.name == "Player"):
@@ -111,3 +110,4 @@ func _on_dog_player_exited(body):
 	if body.get_name() == "Player":
 		in_dog_area = false
 		print("no")
+		

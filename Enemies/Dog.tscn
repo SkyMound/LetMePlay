@@ -23,5 +23,6 @@ shape = SubResource("RectangleShape2D_0cpti")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SoundRange"]
 shape = SubResource("CircleShape2D_eud6l")
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="SoundRange" to="." method="_on_sound_range_body_entered"]
 [connection signal="body_exited" from="SoundRange" to="." method="_on_sound_range_body_exited"]
