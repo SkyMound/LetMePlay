@@ -6,7 +6,7 @@
 size = Vector2(18, 15)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eud6l"]
-radius = 188.003
+radius = 133.015
 
 [node name="Dog" type="Area2D"]
 script = ExtResource("1_5aeyp")
@@ -22,3 +22,6 @@ shape = SubResource("RectangleShape2D_0cpti")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SoundRange"]
 shape = SubResource("CircleShape2D_eud6l")
+
+[connection signal="body_entered" from="SoundRange" to="." method="_on_sound_range_body_entered"]
+[connection signal="body_exited" from="SoundRange" to="." method="_on_sound_range_body_exited"]
