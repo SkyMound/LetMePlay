@@ -6,7 +6,7 @@ extends Button
 func _ready():
 	self.icon = sound_on
 
-func _toggled(button_pressed):
+func _toggled(_button_pressed):
 	if self.icon == sound_off:
 		self.icon = sound_on
 		AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"),false)
