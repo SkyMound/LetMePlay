@@ -12,6 +12,9 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 var isAttacking = false
 
+var canFishing = false
+var canMove = true
+
 var facing = 1;
 
 var in_dog_area = false
@@ -36,7 +39,8 @@ func _physics_process(delta):
 	update_animations(input_axis)
 
 	var was_on_floor = is_on_floor()
-	move_and_slide()
+	if canMove:
+		move_and_slide()
 	var just_left_ledge = was_on_floor and not is_on_floor() and velocity.y >= 0
 	if(just_left_ledge):
 		coyote_jump_timer.start(COYOTE_TIME)
@@ -88,7 +92,15 @@ func update_animations(input_axis) :
 func _on_animation_player_animation_finished(anim_name):
 	if (anim_name=="attack") :
 		isAttacking = false
-		#AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), true)
+		AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), true)
+
+func _on_fishing_area_body_entered(body):
+	if(body.name == "Player"):
+		canFishing = true
+
+func _on_fishing_area_body_exited(body):
+	if(body.name == "Player"):
+		canFishing = false
 
 func _on_dog_player_entered(body):
 	if body.get_name() == "Player":

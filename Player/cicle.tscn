@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dm2g01glj268p"]
+
+[ext_resource type="Script" path="res://Player/cicle.gd" id="1_o86ds"]
+[ext_resource type="Texture2D" uid="uid://ckt8wdedcp7su" path="res://ressources/AdditionalRessources/Cicle.png" id="1_sdji3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gxljf"]
+radius = 200.0
+
+[node name="Node2D" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_o86ds")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("1_sdji3")
+
+[node name="hookCoolDown" type="Area2D" parent="Sprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/hookCoolDown"]
+shape = SubResource("CircleShape2D_gxljf")

@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://bf0iear5vehgw"]
+
+[ext_resource type="Script" path="res://World/River.gd" id="1_dvv3p"]
+[ext_resource type="Material" uid="uid://cs2dy6bt1w6ve" path="res://World/testeau.tres" id="1_lw0sd"]
+[ext_resource type="Texture2D" uid="uid://0fljs76ht7im" path="res://icon.svg" id="2_ef3v0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7okhu"]
+size = Vector2(17, 62)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fsron"]
+size = Vector2(16, 65)
+
+[node name="river" type="Node2D"]
+script = ExtResource("1_dvv3p")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("1_lw0sd")
+scale = Vector2(0.945313, 0.414063)
+texture = ExtResource("2_ef3v0")
+
+[node name="change_direction" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="change_direction"]
+position = Vector2(57, -4)
+shape = SubResource("RectangleShape2D_7okhu")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="change_direction"]
+position = Vector2(-57, -7)
+shape = SubResource("RectangleShape2D_fsron")
+
+[connection signal="body_entered" from="change_direction" to="." method="_on_area_2d_body_entered"]
