@@ -14,9 +14,12 @@ var isAttacking = false
 
 var facing = 1;
 
+var in_dog_area = false
+
 @onready var animation_player = $AnimationPlayer
 @onready var coyote_jump_timer = $CoyoteJumpTimer
 @onready var player = $"."
+@onready var jump_sfx = $Jump
 
 
 func _physics_process(delta):
@@ -47,6 +50,9 @@ func apply_gravity(delta) :
 func handle_jump() :
 	if is_on_floor() or coyote_jump_timer.time_left > 0.0:
 		if Input.is_action_just_pressed("ui_accept") :
+			jump_sfx.play()
+			if not AudioServer.is_bus_mute(AudioServer.get_bus_index("SFX")) and in_dog_area:
+				pass
 			velocity.y = JUMP_VELOCITY
 	elif not is_on_floor():
 		if Input.is_action_just_released("ui_accept") and velocity.y < JUMP_VELOCITY / 2:
@@ -76,9 +82,18 @@ func update_animations(input_axis) :
 			animation_player.play("fall")
 	elif input_axis != 0 :
 		animation_player.play("run")
-	else :
+	else : 
 		animation_player.play("idle")
 			
 func _on_animation_player_animation_finished(anim_name):
 	if (anim_name=="attack") :
-		isAttacking = false 
+		isAttacking = false
+		AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"), true)
+
+
+func _on_dog_area_entered(area):
+	in_dog_area = true
+
+
+func _on_dog_area_exited(area):
+	in_dog_area = false

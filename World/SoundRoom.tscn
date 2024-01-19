@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://4oj3cc0t64ew"]
+
+[ext_resource type="Script" path="res://World/SoundRoom.gd" id="2_4pgxw"]
+[ext_resource type="PackedScene" uid="uid://cj8hmvgyi8oo2" path="res://Player/Player.tscn" id="2_6oibl"]
+[ext_resource type="PackedScene" uid="uid://cmxsldgcbkth" path="res://Enemies/Dog.tscn" id="3_6s6ba"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_54dce"]
+size = Vector2(68, 13)
+
+[node name="SoundRoom" type="Node2D"]
+
+[node name="Sol" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sol"]
+polygon = PackedVector2Array(0, 0, 19, 0, 19, 109, 63, 109, 121, 109, 334.307, 109, 334, 91, 367, 91, 367, 110, 607, 110, 607, 0, 621, 0, 621, 179, 0, 179)
+
+[node name="Polygon2D" type="Polygon2D" parent="Sol/CollisionPolygon2D"]
+polygon = PackedVector2Array(19, 109, 19, 0, 0, 0, 0, 179, 621, 179, 621, -2, 607, -2, 607, 110, 367, 110, 367, 91, 334, 91, 334, 109)
+
+[node name="PlateformeSon" type="StaticBody2D" parent="."]
+position = Vector2(0, -8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlateformeSon"]
+position = Vector2(101, 81)
+shape = SubResource("RectangleShape2D_54dce")
+
+[node name="Polygon2D" type="Polygon2D" parent="PlateformeSon/CollisionShape2D"]
+polygon = PackedVector2Array(-34, -7, -34, 7, 34, 7, 34, -7)
+
+[node name="BlocageChien" type="StaticBody2D" parent="."]
+position = Vector2(264, -26)
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="BlocageChien"]
+position = Vector2(101, 81)
+build_mode = 1
+polygon = PackedVector2Array(-34, 7, -34, -56, 242, -57, 242, 29, 32, 29, 32, 7)
+script = ExtResource("2_4pgxw")
+
+[node name="Polygon2D" type="Polygon2D" parent="BlocageChien/CollisionShape2D"]
+polygon = PackedVector2Array(-34, -56, -34, 7, 32, 7, 32, 7, 32, 29, 242, 29, 242, -57)
+
+[node name="Player" parent="." instance=ExtResource("2_6oibl")]
+position = Vector2(42, 89)
+
+[node name="Dog" parent="." instance=ExtResource("3_6s6ba")]
+position = Vector2(430, 102)
+
+[connection signal="area_entered" from="Dog" to="Player" method="_on_dog_area_entered"]
+[connection signal="area_exited" from="Dog" to="Player" method="_on_dog_area_exited"]
