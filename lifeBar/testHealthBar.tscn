@@ -48,6 +48,8 @@ polygon = PackedVector2Array(754, 133, 754, 111, 1060, 110, 1060, 134)
 
 [node name="Player" parent="." instance=ExtResource("1_1q1ay")]
 position = Vector2(36, 127)
+activeHealthBar = false
+activeHealthBarCollider = false
 
 [node name="river" parent="." instance=ExtResource("2_08fuq")]
 position = Vector2(524, 174)

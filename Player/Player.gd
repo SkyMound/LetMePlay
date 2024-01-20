@@ -23,6 +23,9 @@ var health = 100
 var in_dog_area = false
 signal jumped
 
+@export var activeHealthBar = true
+@export var activeHealthBarCollider = true
+
 @onready var animation_player = $AnimationPlayer
 @onready var coyote_jump_timer = $CoyoteJumpTimer
 @onready var can_be_attacked_timer = $CanBeAttackedTimer
@@ -30,12 +33,21 @@ signal jumped
 @onready var jump_sfx = $Jump
 @onready var health_bar = $HealthBar
 
+
+@onready var hitBoxHealth = $CollisionHealth
+
 func _ready():
 	health = 100
 	health_bar.init_health(health)
+	
+	if(not activeHealthBar):
+		health_bar.queue_free()
+	if(not activeHealthBarCollider):
+		hitBoxHealth.queue_free()
 
 
 func _physics_process(delta):
+	
 
 	apply_gravity(delta)
 	if canMove:
