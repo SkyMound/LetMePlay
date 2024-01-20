@@ -537,7 +537,6 @@ hframes = 3
 [node name="Rod" type="Area2D" parent="."]
 
 [node name="RodSprite" type="Sprite2D" parent="Rod"]
-visible = false
 position = Vector2(1, -13)
 texture = ExtResource("5_mlsfu")
 hframes = 3
@@ -555,9 +554,10 @@ libraries = {
 [node name="Jump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_4nh26")
 pitch_scale = 2.0
+bus = &"SFX"
 
 [node name="fishingaction" type="Sprite2D" parent="."]
-position = Vector2(0, 30)
+position = Vector2(0, 46)
 script = ExtResource("7_4stq3")
 
 [node name="CanBeAttackedTimer" type="Timer" parent="."]

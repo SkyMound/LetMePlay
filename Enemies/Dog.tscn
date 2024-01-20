@@ -8,9 +8,10 @@
 size = Vector2(18, 15)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eud6l"]
-radius = 133.015
+radius = 150.304
 
 [node name="Dog" type="Area2D"]
+scale = Vector2(1.28408, 1.40114)
 script = ExtResource("1_5aeyp")
 sprite_sleep = ExtResource("2_2akwl")
 sprite_attack = ExtResource("3_24jw0")

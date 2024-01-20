@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@onready var animated_sprite_2d = $AnimatedSprite2D
+
 var max_length = 70
 var force = 400
 var touching = false
@@ -32,9 +34,11 @@ func _physics_process(delta):
 		touching = false
 		
 	if Input.is_action_just_released("Lmb") and can_move:
+		animated_sprite_2d.play("hurt")
 		velocity = vector_normalized*force
 		
 	if is_on_floor() and must_stop:
+		animated_sprite_2d.play("idle")
 		velocity = Vector2(0,0)
 		must_stop = false
 		can_move = true
