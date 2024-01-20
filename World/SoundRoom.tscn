@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://4oj3cc0t64ew"]
+[gd_scene load_steps=10 format=3 uid="uid://4oj3cc0t64ew"]
 
 [ext_resource type="Script" path="res://World/SoundRoom.gd" id="2_4pgxw"]
 [ext_resource type="PackedScene" uid="uid://cj8hmvgyi8oo2" path="res://Player/Player.tscn" id="2_6oibl"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c5vxhbidcnech" path="res://Assets/sound-off-solid.png" id="6_5pmy4"]
 [ext_resource type="Texture2D" uid="uid://bwn6s8e8it6pr" path="res://Assets/free-refresh-icon-3104-thumb.png" id="7_a0fma"]
 [ext_resource type="Script" path="res://World/Restart.gd" id="8_uj1l2"]
+[ext_resource type="PackedScene" uid="uid://b6xcvueiyms8n" path="res://ressources/Portal/Portal.tscn" id="9_gb7fr"]
 
 [node name="SoundRoom" type="Node2D"]
 
@@ -17,7 +18,7 @@
 polygon = PackedVector2Array(0, 0, 19, 0, 19, 109, 63, 109, 121, 109, 334.307, 109, 334, 91, 367, 91, 367, 110, 607, 110, 607, 0, 621, 0, 621, 179, 0, 179)
 
 [node name="Polygon2D" type="Polygon2D" parent="Sol/CollisionPolygon2D"]
-polygon = PackedVector2Array(19, 109, 19, 0, 0, 0, 0, 179, 621, 179, 621, -2, 607, -2, 607, 110, 367, 110, 367, 91, 334, 91, 334, 109)
+polygon = PackedVector2Array(19, 109, 19, -47, -167, -47, -167, 250, 803, 250, 803, -47, 607, -47, 607, 110, 367, 110, 367, 91, 334, 91, 334, 109)
 
 [node name="BlocageChien" type="StaticBody2D" parent="."]
 position = Vector2(264, -26)
@@ -25,17 +26,19 @@ position = Vector2(264, -26)
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="BlocageChien"]
 position = Vector2(101, 81)
 build_mode = 1
-polygon = PackedVector2Array(-34, 7, -34, -56, 242, -57, 242, 29, 32, 29, 32, 7)
+polygon = PackedVector2Array(-34, -3, -34, -56, 242, -57, 242, 16, 32, 16, 32, -3)
 script = ExtResource("2_4pgxw")
 
 [node name="Polygon2D" type="Polygon2D" parent="BlocageChien/CollisionShape2D"]
-polygon = PackedVector2Array(-34, -56, -34, 7, 32, 7, 32, 7, 32, 29, 242, 29, 242, -57)
+polygon = PackedVector2Array(-34, -100, -34, -3, 32, -3, 32, 16, 242, 16, 242, -101)
 
 [node name="Dog" parent="." instance=ExtResource("3_6s6ba")]
-position = Vector2(430, 102)
+position = Vector2(431, 98)
 
 [node name="Player" parent="." instance=ExtResource("2_6oibl")]
 position = Vector2(42, 89)
+activeHealthBar = false
+activeHealthBarCollider = false
 
 [node name="Sound" type="Button" parent="."]
 offset_left = 275.0
@@ -52,15 +55,19 @@ sound_off = ExtResource("6_5pmy4")
 sound_on = ExtResource("4_3ejmb")
 
 [node name="Restart" type="Button" parent="."]
-offset_left = 58.0
-offset_top = 12.0
-offset_right = 92.0
-offset_bottom = 43.0
+offset_left = 150.0
+offset_top = 21.0
+offset_right = 193.0
+offset_bottom = 60.0
 focus_mode = 0
 icon = ExtResource("7_a0fma")
 flat = true
 expand_icon = true
 script = ExtResource("8_uj1l2")
+
+[node name="Portal" parent="." instance=ExtResource("9_gb7fr")]
+position = Vector2(590, 91)
+targetScene = "res://GolfGameplay/GolfRoom.tscn"
 
 [connection signal="player_entered" from="Dog" to="Player" method="_on_dog_player_entered"]
 [connection signal="player_exited" from="Dog" to="Player" method="_on_dog_player_exited"]

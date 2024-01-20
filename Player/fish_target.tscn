@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://d3ouecu0q830o"]
+[gd_scene load_steps=3 format=3 uid="uid://c0vxu61ksdpvp"]
 
 [ext_resource type="Texture2D" uid="uid://wuat4dtfals4" path="res://ressources/AdditionalRessources/areaFish.png" id="1_bqu0p"]
 
@@ -9,6 +9,8 @@ radius = 5.0
 scale = Vector2(0.2, 0.2)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+self_modulate = Color(1, 0, 0.0156863, 1)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_bqu0p")
 

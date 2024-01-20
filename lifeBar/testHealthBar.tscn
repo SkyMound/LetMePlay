@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://yvw0tmxce7ld"]
+[gd_scene load_steps=8 format=3 uid="uid://yvw0tmxce7ld"]
 
 [ext_resource type="PackedScene" uid="uid://cj8hmvgyi8oo2" path="res://Player/Player.tscn" id="1_1q1ay"]
-[ext_resource type="PackedScene" uid="uid://bf0iear5vehgw" path="res://World/River.tscn" id="2_08fuq"]
+[ext_resource type="PackedScene" uid="uid://b6xcvueiyms8n" path="res://ressources/Portal/Portal.tscn" id="1_1wrx1"]
+[ext_resource type="PackedScene" path="res://World/River.tscn" id="2_08fuq"]
 [ext_resource type="Texture2D" uid="uid://ct0qvgjgkj2r5" path="res://lifeBar/RemoveLifeBarIcon.png" id="3_0q1sk"]
 [ext_resource type="Script" path="res://lifeBar/RemoveLife.gd" id="3_tsyj0"]
 [ext_resource type="PackedScene" uid="uid://b54abjfo2lugx" path="res://ressources/star/star.tscn" id="4_n8kvu"]
@@ -16,7 +17,7 @@ size = Vector2(75, 5)
 [node name="Polygon2D" type="Polygon2D" parent="world"]
 position = Vector2(-187.111, -64)
 scale = Vector2(14.4272, 10)
-polygon = PackedVector2Array(12.9, 26.3, 12.9, 21.4, 45.2, 18.9, 45.1212, 22.6, 45.1, 26.2)
+polygon = PackedVector2Array(2.50298, 37.5, 2.50298, 4, 12.8307, 4, 12.8307, 21.4, 45.0615, 18.9, 45.0615, 37.5)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="world/Polygon2D"]
 position = Vector2(12.9693, 6.4)
@@ -24,42 +25,40 @@ scale = Vector2(0.0693135, 0.1)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="world/Polygon2D/StaticBody2D"]
 position = Vector2(0, 1)
-polygon = PackedVector2Array(463, 125, 463, 196, -3, 199, -4, 151)
+polygon = PackedVector2Array(463, 124, 463, 199, -22.9997, 199, -22.9997, -18, -1.9997, -18, -1.9997, 149)
 
 [node name="Polygon2D2" type="Polygon2D" parent="world"]
 position = Vector2(-187.122, -64)
 scale = Vector2(14.4274, 10)
-polygon = PackedVector2Array(45.0614, 18.9, 53.4483, 19.1, 62.1816, 22.5, 85.0547, 22.9, 85.0547, 19.9, 86.4409, 19.8, 87.2034, 25.8, 62.1816, 26.4, 53.5176, 26.3, 53.4483, 20.5, 45.0614, 20.6)
+polygon = PackedVector2Array(45.0614, 18.9, 53.4484, 18.9, 62.1816, 22.8, 85.055, 22.8, 85.0547, 19.6, 100.512, 19.6, 100.512, 37.5, 44.4378, 37.7, 44.5764, 27.6, 53.4484, 27.6, 53.4484, 20.5, 45.0614, 20.5)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="world/Polygon2D2"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="world/Polygon2D2/StaticBody2D"]
 position = Vector2(28.1489, 13.1)
 scale = Vector2(0.0433208, 0.0551471)
-polygon = PackedVector2Array(588.804, 110.613, 788.798, 172.267, 1311.99, 177.707, 1312.38, 126.227, 1345.59, 123.307, 1356.79, 177.707, 1363.19, 228.48, 788.805, 242.986, 588.804, 239.36, 588.804, 137.813, 393.6, 134.187, 395.2, 106.987)
+polygon = PackedVector2Array(584.004, 105.173, 784.002, 175.893, 1311.99, 175.893, 1312, 119.68, 1366.4, 117.867, 1366.4, 239.36, 585.604, 239.36, 585.604, 134.187, 390.406, 134.187, 390.406, 105.173)
 
 [node name="Polygon2D3" type="Polygon2D" parent="world"]
-polygon = PackedVector2Array(752, 112, 754, 133, 1060, 133, 1059, 110)
+polygon = PackedVector2Array(754, 110, 754, 134, 1263, 134, 1263, 1, 1060, 1, 1060, 110)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="world/Polygon2D3"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="world/Polygon2D3/StaticBody2D"]
-polygon = PackedVector2Array(754, 133, 754, 111, 1060, 110, 1060, 134)
-
-[node name="Player" parent="." instance=ExtResource("1_1q1ay")]
-position = Vector2(36, 127)
-activeHealthBar = false
-activeHealthBarCollider = false
+polygon = PackedVector2Array(754, 134, 754, 110, 1060, 110, 1060, 0, 1073, 0, 1073, 134)
 
 [node name="river" parent="." instance=ExtResource("2_08fuq")]
-position = Vector2(524, 174)
+position = Vector2(523, 188)
 
 [node name="fishingArea" type="Area2D" parent="river"]
-position = Vector2(-526, -173)
+position = Vector2(-526, -189)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="river/fishingArea"]
 position = Vector2(524, 125)
 shape = SubResource("RectangleShape2D_q0ci2")
+
+[node name="Player" parent="." instance=ExtResource("1_1q1ay")]
+position = Vector2(36, 127)
 
 [node name="RemoveLife" type="Button" parent="."]
 offset_left = 985.0
@@ -83,7 +82,12 @@ position = Vector2(111, 126)
 position = Vector2(81, 127)
 
 [node name="star" parent="." instance=ExtResource("4_n8kvu")]
-position = Vector2(1017, 148)
+position = Vector2(794, 92)
+
+[node name="Portal" parent="." instance=ExtResource("1_1wrx1")]
+position = Vector2(1011, 149)
+rotation = 1.5708
+targetScene = "res://World/SoundRoom.tscn"
 
 [connection signal="body_entered" from="river/fishingArea" to="Player" method="_on_fishing_area_body_entered"]
 [connection signal="body_exited" from="river/fishingArea" to="Player" method="_on_fishing_area_body_exited"]
