@@ -1,10 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://yvw0tmxce7ld"]
+[gd_scene load_steps=7 format=3 uid="uid://yvw0tmxce7ld"]
 
 [ext_resource type="PackedScene" uid="uid://cj8hmvgyi8oo2" path="res://Player/Player.tscn" id="1_1q1ay"]
 [ext_resource type="PackedScene" uid="uid://bf0iear5vehgw" path="res://World/River.tscn" id="2_08fuq"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_c1ytb"]
-size = Vector2(55, 7)
+[ext_resource type="Texture2D" uid="uid://ct0qvgjgkj2r5" path="res://lifeBar/RemoveLifeBarIcon.png" id="3_0q1sk"]
+[ext_resource type="Script" path="res://lifeBar/RemoveLife.gd" id="3_tsyj0"]
+[ext_resource type="PackedScene" uid="uid://b54abjfo2lugx" path="res://ressources/star/star.tscn" id="4_n8kvu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q0ci2"]
 size = Vector2(75, 5)
@@ -23,29 +23,31 @@ position = Vector2(12.9693, 6.4)
 scale = Vector2(0.0693135, 0.1)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="world/Polygon2D/StaticBody2D"]
-position = Vector2(14, 4)
+position = Vector2(0, 1)
 polygon = PackedVector2Array(463, 125, 463, 196, -3, 199, -4, 151)
 
 [node name="Polygon2D2" type="Polygon2D" parent="world"]
 position = Vector2(-187.122, -64)
 scale = Vector2(14.4274, 10)
-polygon = PackedVector2Array(45.0614, 18.9, 53.4483, 19.1, 62.1816, 22.5, 73.2716, 22.7, 73.4102, 26.4, 62.1816, 26.4, 53.5176, 26.3, 53.4483, 20.5, 45.0614, 20.6)
+polygon = PackedVector2Array(45.0614, 18.9, 53.4483, 19.1, 62.1816, 22.5, 85.0547, 22.9, 85.0547, 19.9, 86.4409, 19.8, 87.2034, 25.8, 62.1816, 26.4, 53.5176, 26.3, 53.4483, 20.5, 45.0614, 20.6)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="world/Polygon2D2"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="world/Polygon2D2/StaticBody2D"]
 position = Vector2(28.1489, 13.1)
 scale = Vector2(0.0433208, 0.0551471)
-polygon = PackedVector2Array(588.804, 110.613, 788.798, 172.267, 1046.39, 175.893, 1047.99, 242.986, 788.805, 242.986, 588.804, 239.36, 588.804, 137.813, 393.6, 134.187, 395.2, 106.987)
+polygon = PackedVector2Array(588.804, 110.613, 788.798, 172.267, 1311.99, 177.707, 1312.38, 126.227, 1345.59, 123.307, 1356.79, 177.707, 1363.19, 228.48, 788.805, 242.986, 588.804, 239.36, 588.804, 137.813, 393.6, 134.187, 395.2, 106.987)
+
+[node name="Polygon2D3" type="Polygon2D" parent="world"]
+polygon = PackedVector2Array(752, 112, 754, 133, 1060, 133, 1059, 110)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="world/Polygon2D3"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="world/Polygon2D3/StaticBody2D"]
+polygon = PackedVector2Array(754, 133, 754, 111, 1060, 110, 1060, 134)
 
 [node name="Player" parent="." instance=ExtResource("1_1q1ay")]
-position = Vector2(28, 98)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Player"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/StaticBody2D"]
-position = Vector2(3.5, -35.5)
-shape = SubResource("RectangleShape2D_c1ytb")
+position = Vector2(36, 127)
 
 [node name="river" parent="." instance=ExtResource("2_08fuq")]
 position = Vector2(524, 174)
@@ -56,6 +58,30 @@ position = Vector2(-526, -173)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="river/fishingArea"]
 position = Vector2(524, 125)
 shape = SubResource("RectangleShape2D_q0ci2")
+
+[node name="RemoveLife" type="Button" parent="."]
+offset_left = 985.0
+offset_top = 35.0
+offset_right = 1017.0
+offset_bottom = 60.0
+scale = Vector2(2.15349, 2.30818)
+focus_mode = 0
+icon = ExtResource("3_0q1sk")
+flat = true
+expand_icon = true
+script = ExtResource("3_tsyj0")
+
+[node name="star4" parent="." instance=ExtResource("4_n8kvu")]
+position = Vector2(140, 126)
+
+[node name="star3" parent="." instance=ExtResource("4_n8kvu")]
+position = Vector2(111, 126)
+
+[node name="star2" parent="." instance=ExtResource("4_n8kvu")]
+position = Vector2(81, 127)
+
+[node name="star" parent="." instance=ExtResource("4_n8kvu")]
+position = Vector2(1017, 148)
 
 [connection signal="body_entered" from="river/fishingArea" to="Player" method="_on_fishing_area_body_entered"]
 [connection signal="body_exited" from="river/fishingArea" to="Player" method="_on_fishing_area_body_exited"]
