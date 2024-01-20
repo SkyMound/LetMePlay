@@ -7,20 +7,22 @@ extends ProgressBar
 var health = 0 : set = _set_health
 
 
-func set_health(new_health):
+func _set_health(new_health):
 	var prev_health = health
 	health = min(max_value, new_health)
 	value = health
+	print(value)
 	
-	if health <=0:
-		queue_free()
+#	if health <=0:
+#		#queue_free()
+#		health = 50
 	if health < prev_health:
 		timer.start()
 	else:
 		damage_bar.value = health
 		
 
-func init_healt(_health):
+func init_health(_health):
 	health = _health
 	max_value = health
 	value = health

@@ -1,3 +1,61 @@
-[gd_scene format=3 uid="uid://yvw0tmxce7ld"]
+[gd_scene load_steps=5 format=3 uid="uid://yvw0tmxce7ld"]
+
+[ext_resource type="PackedScene" uid="uid://cj8hmvgyi8oo2" path="res://Player/Player.tscn" id="1_1q1ay"]
+[ext_resource type="PackedScene" uid="uid://bf0iear5vehgw" path="res://World/River.tscn" id="2_08fuq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c1ytb"]
+size = Vector2(55, 7)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q0ci2"]
+size = Vector2(75, 5)
 
 [node name="testHealthBar" type="Node2D"]
+
+[node name="world" type="Node" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="world"]
+position = Vector2(-187.111, -64)
+scale = Vector2(14.4272, 10)
+polygon = PackedVector2Array(12.9, 26.3, 12.9, 21.4, 45.2, 18.9, 45.1212, 22.6, 45.1, 26.2)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="world/Polygon2D"]
+position = Vector2(12.9693, 6.4)
+scale = Vector2(0.0693135, 0.1)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="world/Polygon2D/StaticBody2D"]
+position = Vector2(14, 4)
+polygon = PackedVector2Array(463, 125, 463, 196, -3, 199, -4, 151)
+
+[node name="Polygon2D2" type="Polygon2D" parent="world"]
+position = Vector2(-187.122, -64)
+scale = Vector2(14.4274, 10)
+polygon = PackedVector2Array(45.0614, 18.9, 53.4483, 19.1, 62.1816, 22.5, 73.2716, 22.7, 73.4102, 26.4, 62.1816, 26.4, 53.5176, 26.3, 53.4483, 20.5, 45.0614, 20.6)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="world/Polygon2D2"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="world/Polygon2D2/StaticBody2D"]
+position = Vector2(28.1489, 13.1)
+scale = Vector2(0.0433208, 0.0551471)
+polygon = PackedVector2Array(588.804, 110.613, 788.798, 172.267, 1046.39, 175.893, 1047.99, 242.986, 788.805, 242.986, 588.804, 239.36, 588.804, 137.813, 393.6, 134.187, 395.2, 106.987)
+
+[node name="Player" parent="." instance=ExtResource("1_1q1ay")]
+position = Vector2(28, 98)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Player"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/StaticBody2D"]
+position = Vector2(3.5, -35.5)
+shape = SubResource("RectangleShape2D_c1ytb")
+
+[node name="river" parent="." instance=ExtResource("2_08fuq")]
+position = Vector2(524, 174)
+
+[node name="fishingArea" type="Area2D" parent="river"]
+position = Vector2(-526, -173)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="river/fishingArea"]
+position = Vector2(524, 125)
+shape = SubResource("RectangleShape2D_q0ci2")
+
+[connection signal="body_entered" from="river/fishingArea" to="Player" method="_on_fishing_area_body_entered"]
+[connection signal="body_exited" from="river/fishingArea" to="Player" method="_on_fishing_area_body_exited"]
