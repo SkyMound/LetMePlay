@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://ckuyes1r8lycv"]
 
-[ext_resource type="Script" path="res://Player/PlayerGolf.gd" id="1_mcap7"]
+[ext_resource type="Script" path="res://GolfGameplay/PlayerGolf.gd" id="1_mcap7"]
 [ext_resource type="Texture2D" uid="uid://bl5qee72mymd2" path="res://Assets/Sunny-land-files/Graphical Assets/spritesheets/player.png" id="2_0sj7a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o21y3"]
@@ -130,3 +130,11 @@ animation = &"jump"
 [node name="CoyoteJumpTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 20.0
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.21
+drag_right_margin = 0.11

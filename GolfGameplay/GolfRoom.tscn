@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://n6evy0ttqyld"]
+
+[ext_resource type="Script" path="res://GolfGameplay/GolfTrigger.gd" id="1_yt7ak"]
+[ext_resource type="Texture2D" uid="uid://dptyfdo2jpwuw" path="res://Assets/Golf.png" id="2_5qs58"]
+[ext_resource type="PackedScene" uid="uid://cj8hmvgyi8oo2" path="res://Player/Player.tscn" id="2_du2lx"]
+[ext_resource type="PackedScene" uid="uid://ckuyes1r8lycv" path="res://GolfGameplay/PlayerGolf.tscn" id="2_hfcra"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v0ttf"]
+size = Vector2(24, 38)
+
+[node name="GolfRoom" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(0, -77, 16, -77, 16, -7, 72, -7, 17, 37, 17, 159, 128, 159, 128, 132, 151, 132, 151, 159, 205, 159, 261, 124, 261, 159, 306, 159, 377, 97, 391.5, 159, 500, 159, 500, 42, 516, 42, 516, 179, 0, 179)
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D/CollisionPolygon2D"]
+polygon = PackedVector2Array(16, -77, 0, -77, 0, 179, 516, 179, 516, 42, 500, 42, 500, 159, 392, 159, 377, 97, 306, 159, 261, 159, 261, 124, 205, 159, 151, 159, 151, 132, 128, 132, 128, 159, 17, 159, 17, 37, 72, -7, 16, -7)
+
+[node name="Plateforme1" type="StaticBody2D" parent="."]
+position = Vector2(68, -50)
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Plateforme1"]
+position = Vector2(67, 112)
+polygon = PackedVector2Array(-34, -38, -34, -56, 56, -56, 56, -38)
+
+[node name="Polygon2D" type="Polygon2D" parent="Plateforme1/CollisionShape2D"]
+polygon = PackedVector2Array(-34, -56, -34, -38, 56, -38, 56, -56)
+
+[node name="Plateforme2" type="StaticBody2D" parent="."]
+position = Vector2(157, 11)
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Plateforme2"]
+position = Vector2(67, 112)
+polygon = PackedVector2Array(-34, -38, -34, -56, 9, -56, 9, -73, 38, -73, 56, -56, 56, -38)
+
+[node name="Polygon2D" type="Polygon2D" parent="Plateforme2/CollisionShape2D"]
+polygon = PackedVector2Array(-34, -56, -34, -38, 56, -38, 56, -56, 38, -73, 9, -73, 9, -56)
+
+[node name="Player" parent="." instance=ExtResource("2_du2lx")]
+position = Vector2(29, 154)
+
+[node name="GolfTrigger" type="Area2D" parent="."]
+position = Vector2(485, 138)
+script = ExtResource("1_yt7ak")
+player_golf_scene = ExtResource("2_hfcra")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GolfTrigger"]
+shape = SubResource("RectangleShape2D_v0ttf")
+
+[node name="Sprite2D" type="Sprite2D" parent="GolfTrigger/CollisionShape2D"]
+scale = Vector2(0.101563, 0.101563)
+texture = ExtResource("2_5qs58")
+
+[connection signal="body_entered" from="GolfTrigger" to="GolfTrigger" method="_on_body_entered"]

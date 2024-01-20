@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://gtbph8ko66nv"]
 
-[ext_resource type="Script" path="res://World/GolfTest.gd" id="1_jxky8"]
-[ext_resource type="PackedScene" uid="uid://ckuyes1r8lycv" path="res://Player/PlayerGolf.tscn" id="2_cri30"]
+[ext_resource type="Script" path="res://GolfGameplay/GolfTest.gd" id="1_jxky8"]
+[ext_resource type="PackedScene" uid="uid://ckuyes1r8lycv" path="res://GolfGameplay/PlayerGolf.tscn" id="2_cri30"]
 
 [node name="GolfTest" type="Node2D"]
 script = ExtResource("1_jxky8")
