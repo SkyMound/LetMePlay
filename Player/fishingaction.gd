@@ -23,6 +23,7 @@ func _process(delta):
 			for i in get_tree().get_nodes_in_group("fish"):
 				i.die()
 			print("Poisson Péché")
+			player.set_health(player.health+25)
 			endPeche()
 
 func startPeche():

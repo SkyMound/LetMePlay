@@ -14,22 +14,32 @@ var isAttacking = false
 
 var canFishing = false
 var canMove = true
+var canBeAttacked = true
 
 var facing = 1;
+
+var health = 100
 
 var in_dog_area = false
 signal jumped
 
 @onready var animation_player = $AnimationPlayer
 @onready var coyote_jump_timer = $CoyoteJumpTimer
+@onready var can_be_attacked_timer = $CanBeAttackedTimer
 @onready var player = $"."
 @onready var jump_sfx = $Jump
+@onready var health_bar = $HealthBar
+	
+func _ready():
+	health = 100
+	health_bar.init_health(health)
+	
 	
 func _physics_process(delta):
 	
 	apply_gravity(delta)
-	
-	handle_jump()
+	if canMove:
+		handle_jump()
 	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -79,6 +89,12 @@ func update_animations(input_axis) :
 		#player.set_scale(Vector2(input_axis,player.scale.y))
 	if(isAttacking) :
 		animation_player.play("attack")
+		if canBeAttacked:
+			canBeAttacked = false
+			can_be_attacked_timer.start()
+			var val = health - 5
+			print(val)
+			set_health(val)
 	elif not is_on_floor() :
 		if velocity.y < 0 :
 			animation_player.play("jump")
@@ -88,6 +104,11 @@ func update_animations(input_axis) :
 		animation_player.play("run")
 	else : 
 		animation_player.play("idle")
+		
+		
+func set_health(value):
+	health = value
+	health_bar.health = health
 			
 func _on_animation_player_animation_finished(anim_name):
 	if (anim_name=="attack") :
@@ -111,3 +132,7 @@ func _on_dog_player_exited(body):
 	if body.get_name() == "Player":
 		in_dog_area = false
 		print("no")
+
+
+func _on_can_be_attacked_timer_timeout():
+	canBeAttacked = true
