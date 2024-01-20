@@ -18,8 +18,10 @@ func _set_health(new_health):
 #		health = 50
 	if health < prev_health:
 		timer.start()
-	else:
+	elif new_health <= max_value:
 		damage_bar.value = health
+	elif new_health > max_value:
+		damage_bar.value = max_value
 		
 
 func init_health(_health):

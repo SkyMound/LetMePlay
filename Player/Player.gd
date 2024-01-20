@@ -120,8 +120,11 @@ func update_animations(input_axis) :
 
 func set_health(value):
 	if(is_instance_valid(health_bar)):
-		health = value
-		health_bar.health = health
+		if health<=100:
+			health = value
+			health_bar.health = health
+		else:
+			health = 100
 
 func _on_animation_player_animation_finished(anim_name):
 	if (anim_name=="attack") :

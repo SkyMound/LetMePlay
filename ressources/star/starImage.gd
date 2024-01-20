@@ -1,4 +1,4 @@
-extends Sprite2D
+extends AnimatedSprite2D
 
 var particles_instance
 # Called when the node enters the scene tree for the first time.
