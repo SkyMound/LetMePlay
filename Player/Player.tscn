@@ -548,10 +548,7 @@ libraries = {
 [node name="Jump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_4nh26")
 pitch_scale = 2.0
-
-[node name="fishingaction" type="Sprite2D" parent="."]
-position = Vector2(0, 30)
-script = ExtResource("7_4stq3")
+bus = &"SFX"
 
 [node name="CanBeAttackedTimer" type="Timer" parent="."]
 wait_time = 0.35

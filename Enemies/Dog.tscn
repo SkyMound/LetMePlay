@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cmxsldgcbkth"]
+[gd_scene load_steps=6 format=3 uid="uid://cmxsldgcbkth"]
 
 [ext_resource type="Script" path="res://Enemies/Dog.gd" id="1_5aeyp"]
+[ext_resource type="Texture2D" uid="uid://cx8xh21nestar" path="res://Assets/SleepingDog.png" id="2_2akwl"]
+[ext_resource type="Texture2D" uid="uid://pnhmo4v7dimk" path="res://Assets/Dog.png" id="3_24jw0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0cpti"]
 size = Vector2(18, 15)
@@ -10,10 +12,13 @@ radius = 133.015
 
 [node name="Dog" type="Area2D"]
 script = ExtResource("1_5aeyp")
+sprite_sleep = ExtResource("2_2akwl")
+sprite_attack = ExtResource("3_24jw0")
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-color = Color(0, 1, 0.0509804, 1)
-polygon = PackedVector2Array(-9, -7, -9, 8, 9, 8, 9, -7)
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -3)
+scale = Vector2(0.1, 0.1)
+flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_0cpti")
@@ -23,5 +28,6 @@ shape = SubResource("RectangleShape2D_0cpti")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SoundRange"]
 shape = SubResource("CircleShape2D_eud6l")
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="SoundRange" to="." method="_on_sound_range_body_entered"]
 [connection signal="body_exited" from="SoundRange" to="." method="_on_sound_range_body_exited"]
