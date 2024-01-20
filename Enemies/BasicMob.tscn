@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://c6jc87bpeqcyx"]
+[gd_scene load_steps=11 format=3 uid="uid://c6jc87bpeqcyx"]
 
 [ext_resource type="Texture2D" uid="uid://e4vn4pii84l0" path="res://Assets/Sunny-land-files/Graphical Assets/spritesheets/oposum.png" id="1_wybiw"]
+[ext_resource type="Script" path="res://Enemies/BasicMob.gd" id="1_xku0w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7a0a5"]
 atlas = ExtResource("1_wybiw")
@@ -55,11 +56,13 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_si3ki"]
 size = Vector2(23, 15)
 
-[node name="BasicMob" type="RigidBody2D"]
+[node name="BasicMob" type="RigidBody2D" groups=["hitable"]]
+script = ExtResource("1_xku0w")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(119, 23)
 sprite_frames = SubResource("SpriteFrames_nvdkb")
-frame_progress = 0.39577
+frame_progress = 0.775696
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-3.5, 6.5)

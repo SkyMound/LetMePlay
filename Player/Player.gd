@@ -111,3 +111,8 @@ func _on_dog_player_exited(body):
 		in_dog_area = false
 		print("no")
 		
+
+
+func _on_rod_body_entered(body):
+	if body.is_in_group("hitable") :
+		print("hit someone") # Replace with function body.

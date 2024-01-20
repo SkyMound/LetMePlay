@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dfjl2fyk2cq8i"]
+[gd_scene load_steps=4 format=3 uid="uid://dfjl2fyk2cq8i"]
 
 [ext_resource type="Script" path="res://World/TestingRoom.gd" id="1_bvpe0"]
 [ext_resource type="PackedScene" uid="uid://cj8hmvgyi8oo2" path="res://Player/Player.tscn" id="2_glnrx"]
+[ext_resource type="PackedScene" uid="uid://c6jc87bpeqcyx" path="res://Enemies/BasicMob.tscn" id="3_4syoc"]
 
 [node name="TestingRoom" type="Node2D"]
 script = ExtResource("1_bvpe0")
@@ -15,3 +16,6 @@ polygon = PackedVector2Array(0, 0, 19, 0, 19, 109, 63, 109, 63, 85, 87, 85, 124,
 
 [node name="Player" parent="." instance=ExtResource("2_glnrx")]
 position = Vector2(42, 89)
+
+[node name="BasicMob" parent="." instance=ExtResource("3_4syoc")]
+position = Vector2(208, 71)

@@ -514,7 +514,7 @@ position = Vector2(0, -16)
 texture = ExtResource("2_dfkqo")
 hframes = 3
 
-[node name="Rod" type="Area2D" parent="."]
+[node name="Rod" type="Area2D" parent="." groups=["weapon"]]
 
 [node name="RodSprite" type="Sprite2D" parent="Rod"]
 visible = false
@@ -539,3 +539,4 @@ bus = &"SFX"
 
 [connection signal="timeout" from="AttackTimer" to="AttackTimer" method="_on_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="body_entered" from="Rod" to="." method="_on_rod_body_entered"]
