@@ -1,7 +1,33 @@
-[gd_scene load_steps=11 format=3 uid="uid://c6jc87bpeqcyx"]
+[gd_scene load_steps=21 format=3 uid="uid://c6jc87bpeqcyx"]
 
 [ext_resource type="Texture2D" uid="uid://e4vn4pii84l0" path="res://Assets/Sunny-land-files/Graphical Assets/spritesheets/oposum.png" id="1_wybiw"]
 [ext_resource type="Script" path="res://Enemies/BasicMob.gd" id="1_xku0w"]
+[ext_resource type="PackedScene" uid="uid://cvadmfub1778d" path="res://lifeBar/healthBar.tscn" id="2_qng7u"]
+[ext_resource type="Texture2D" uid="uid://bm6wocwd25kvm" path="res://Assets/Sunny-land-files/Graphical Assets/spritesheets/enemy-deadth.png" id="3_5w7eq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kk2f8"]
+atlas = ExtResource("3_5w7eq")
+region = Rect2(0, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5v2px"]
+atlas = ExtResource("3_5w7eq")
+region = Rect2(40, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_codx7"]
+atlas = ExtResource("3_5w7eq")
+region = Rect2(80, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sl5ex"]
+atlas = ExtResource("3_5w7eq")
+region = Rect2(120, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p181m"]
+atlas = ExtResource("3_5w7eq")
+region = Rect2(160, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbc6h"]
+atlas = ExtResource("3_5w7eq")
+region = Rect2(200, 0, 40, 41)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7a0a5"]
 atlas = ExtResource("1_wybiw")
@@ -31,6 +57,29 @@ region = Rect2(180, 0, 36, 28)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_kk2f8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5v2px")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_codx7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sl5ex")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p181m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sbc6h")
+}],
+"loop": true,
+"name": &"death",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_7a0a5")
 }, {
 "duration": 1.0,
@@ -49,21 +98,48 @@ animations = [{
 "texture": SubResource("AtlasTexture_ltmji")
 }],
 "loop": true,
-"name": &"default",
+"name": &"idle",
 "speed": 8.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_si3ki"]
 size = Vector2(23, 15)
 
-[node name="BasicMob" type="RigidBody2D" groups=["hitable"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oa6cy"]
+size = Vector2(20.75, 12.75)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kqto4"]
+
+[node name="BasicMob" type="CharacterBody2D" groups=["hurting"]]
 script = ExtResource("1_xku0w")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(119, 23)
-sprite_frames = SubResource("SpriteFrames_nvdkb")
-frame_progress = 0.775696
+[node name="HealthBar" parent="." instance=ExtResource("2_qng7u")]
+offset_left = -16.0
+offset_top = -15.0
+offset_right = 10.0
+offset_bottom = -12.0
+value = 100.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-3.5, 6.5)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 1
+position = Vector2(0, 3)
+sprite_frames = SubResource("SpriteFrames_nvdkb")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, 8.5)
 shape = SubResource("RectangleShape2D_si3ki")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, 5)
+
+[node name="Hurtbox" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1.375, 3.625)
+shape = SubResource("RectangleShape2D_oa6cy")
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_kqto4")
+
+[connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_looped"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

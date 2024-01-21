@@ -1,0 +1,103 @@
+[gd_scene load_steps=17 format=3 uid="uid://5s114i14lmjo"]
+
+[ext_resource type="Script" path="res://Enemies/flying_mob.gd" id="1_ve12f"]
+[ext_resource type="Texture2D" uid="uid://vb3c1ycpnpdb" path="res://Assets/Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-1.png" id="2_8gshb"]
+[ext_resource type="Texture2D" uid="uid://db712ljerplhd" path="res://Assets/Sunny-land-files/Graphical Assets/sprites/eagle/eagle-attack-1.png" id="2_m43ge"]
+[ext_resource type="Texture2D" uid="uid://bq21j0njbkdb3" path="res://Assets/Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-2.png" id="3_8pmbd"]
+[ext_resource type="Texture2D" uid="uid://rlhkmkke6vqw" path="res://Assets/Sunny-land-files/Graphical Assets/sprites/eagle/eagle-attack-2.png" id="3_m0apk"]
+[ext_resource type="Texture2D" uid="uid://5x4u0s0rgo1y" path="res://Assets/Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-3.png" id="4_14yli"]
+[ext_resource type="Texture2D" uid="uid://bubgujovmucsq" path="res://Assets/Sunny-land-files/Graphical Assets/sprites/eagle/eagle-attack-3.png" id="4_c8nx6"]
+[ext_resource type="Texture2D" uid="uid://c0eaugdqjil12" path="res://Assets/Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-4.png" id="5_lwg5k"]
+[ext_resource type="Texture2D" uid="uid://bhsouwlajvimp" path="res://Assets/Sunny-land-files/Graphical Assets/sprites/eagle/eagle-attack-4.png" id="5_o7u60"]
+[ext_resource type="PackedScene" uid="uid://cvadmfub1778d" path="res://lifeBar/healthBar.tscn" id="6_68kdd"]
+[ext_resource type="Texture2D" uid="uid://dekosbmc146pp" path="res://Assets/Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-5.png" id="6_wb6ru"]
+[ext_resource type="Texture2D" uid="uid://brl0ixbmttvoi" path="res://Assets/Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-6.png" id="7_icnd4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yor8m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_8gshb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_8pmbd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_14yli")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_lwg5k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_wb6ru")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_icnd4")
+}],
+"loop": true,
+"name": &"death",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_m43ge")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_m0apk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_c8nx6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_o7u60")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yi3y5"]
+radius = 99.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uhg8v"]
+radius = 9.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_28knt"]
+size = Vector2(20.75, 12.75)
+
+[node name="FlyingMob" type="CharacterBody2D" groups=["hurting"]]
+script = ExtResource("1_ve12f")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 1
+sprite_frames = SubResource("SpriteFrames_yor8m")
+animation = &"death"
+autoplay = "default"
+frame = 3
+frame_progress = 0.505411
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+shape = SubResource("CircleShape2D_yi3y5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 3)
+shape = SubResource("CircleShape2D_uhg8v")
+
+[node name="HealthBar" parent="." instance=ExtResource("6_68kdd")]
+offset_left = -19.0
+offset_top = -22.0
+offset_right = 18.0
+offset_bottom = -17.0
+
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(0, 5)
+
+[node name="Hurtbox" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-1.375, 3.625)
+shape = SubResource("RectangleShape2D_28knt")
+
+[connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_looped"]
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://ci5ny3yhrc4f7"]
+
+[ext_resource type="AudioStream" uid="uid://b5na6dkceqhy6" path="res://Assets/Sound/magic cliffs.ogg" id="1_a5jnh"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_a5jnh")
+autoplay = true

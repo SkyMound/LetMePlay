@@ -6,6 +6,9 @@ const JUMP_VELOCITY = -300.0
 const FRICTION = 800.0
 const ACCELERATION = 800.0
 const COYOTE_TIME = 0.1
+@onready var hitbox = $Rod/Hitbox
+@onready var player_sprite = $PlayerSprite
+@onready var effect_animation = $EffectAnimation
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -33,10 +36,10 @@ signal jumped
 func _ready():
 	health = 100
 	health_bar.init_health(health)
+	hitbox.disabled = true
 
 
 func _physics_process(delta):
-
 	apply_gravity(delta)
 	if canMove:
 		handle_jump()
@@ -89,12 +92,7 @@ func update_animations(input_axis) :
 		#player.set_scale(Vector2(input_axis,player.scale.y))
 	if(isAttacking) :
 		animation_player.play("attack")
-		if canBeAttacked:
-			canBeAttacked = false
-			can_be_attacked_timer.start()
-			var val = health - 5
-			print(val)
-			set_health(val)
+		
 	elif not is_on_floor() :
 		if velocity.y < 0 :
 			animation_player.play("jump")
@@ -131,11 +129,17 @@ func _on_dog_player_exited(body):
 	if body.get_name() == "Player":
 		in_dog_area = false
 		print("no")
-		
-func _on_rod_body_entered(body):
-	if body.is_in_group("hitable") :
-		print("hit someone") # Replace with function body.
+
 
 
 func _on_can_be_attacked_timer_timeout():
 	canBeAttacked = true
+	effect_animation.play("RESET")
+
+
+func _on_hurtbox_body_entered(body):
+	if body.is_in_group("hurting") and canBeAttacked:
+		canBeAttacked = false
+		can_be_attacked_timer.start()
+		set_health(health-25) 
+		effect_animation.play("flash")

@@ -1,16 +1,15 @@
-[gd_scene load_steps=22 format=3 uid="uid://cj8hmvgyi8oo2"]
+[gd_scene load_steps=27 format=3 uid="uid://cj8hmvgyi8oo2"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_58gd6"]
 [ext_resource type="Texture2D" uid="uid://c5v87c0sxs7pc" path="res://Assets/OwnAssets/player/attack/player-attack.png" id="2_dfkqo"]
 [ext_resource type="Texture2D" uid="uid://bl5qee72mymd2" path="res://Assets/Sunny-land-files/Graphical Assets/spritesheets/player.png" id="2_w5eoq"]
+[ext_resource type="Shape2D" uid="uid://dvswxvr4qwe1u" path="res://Player/hitbox.tres" id="3_yvgag"]
 [ext_resource type="Script" path="res://Player/PlayerAttack.gd" id="4_i6grp"]
 [ext_resource type="Texture2D" uid="uid://dbpmw60dgruw" path="res://Assets/OwnAssets/player/attack/rod-attack.png" id="5_mlsfu"]
 [ext_resource type="AudioStream" uid="uid://bemkqsbsnxtmo" path="res://Assets/Sound/Jump.mp3" id="6_4nh26"]
-[ext_resource type="Script" path="res://Player/fishingaction.gd" id="7_4stq3"]
 [ext_resource type="PackedScene" uid="uid://cvadmfub1778d" path="res://lifeBar/healthBar.tscn" id="8_18j8c"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o21y3"]
-size = Vector2(13, 20)
+[ext_resource type="Script" path="res://Player/fishingaction.gd" id="9_7ae1w"]
+[ext_resource type="PackedScene" uid="uid://ci5ny3yhrc4f7" path="res://Other/bg_music.tscn" id="10_go6gg"]
 
 [sub_resource type="Animation" id="Animation_cbufa"]
 length = 0.001
@@ -73,6 +72,18 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [Vector2i(1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("PlayerSprite:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_b2epd"]
@@ -479,7 +490,49 @@ _data = {
 "nothing": SubResource("Animation_5mmp1")
 }
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_on0mf"]
+size = Vector2(15, 23.5)
+
+[sub_resource type="Animation" id="Animation_dffis"]
+length = 0.001
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_o0q3p"]
+resource_name = "flash"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0987462, 0.20044),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_66fs3"]
+_data = {
+"RESET": SubResource("Animation_dffis"),
+"flash": SubResource("Animation_o0q3p")
+}
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 floor_constant_speed = true
 floor_snap_length = 3.0
 script = ExtResource("1_58gd6")
@@ -497,14 +550,13 @@ grow_vertical = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1.5, -10)
-shape = SubResource("RectangleShape2D_o21y3")
+shape = ExtResource("3_yvgag")
 
 [node name="CoyoteJumpTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
 
 [node name="AttackTimer" type="Timer" parent="."]
-wait_time = 0.5
 one_shot = true
 script = ExtResource("4_i6grp")
 
@@ -523,6 +575,7 @@ libraries = {
 }
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
+z_index = 1
 position = Vector2(0, -16)
 texture = ExtResource("2_dfkqo")
 hframes = 3
@@ -530,7 +583,7 @@ hframes = 3
 [node name="Rod" type="Area2D" parent="." groups=["weapon"]]
 
 [node name="RodSprite" type="Sprite2D" parent="Rod"]
-visible = false
+z_index = 2
 position = Vector2(1, -13)
 texture = ExtResource("5_mlsfu")
 hframes = 3
@@ -551,9 +604,26 @@ pitch_scale = 2.0
 bus = &"SFX"
 
 [node name="CanBeAttackedTimer" type="Timer" parent="."]
-wait_time = 0.35
+
+[node name="Hurtbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-2, -9.75)
+shape = SubResource("RectangleShape2D_on0mf")
+
+[node name="EffectAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_66fs3")
+}
+
+[node name="fishingaction" type="Sprite2D" parent="."]
+position = Vector2(0, 46)
+script = ExtResource("9_7ae1w")
+
+[node name="AudioStreamPlayer2D" parent="." instance=ExtResource("10_go6gg")]
+volume_db = -24.195
 
 [connection signal="timeout" from="AttackTimer" to="AttackTimer" method="_on_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
-[connection signal="body_entered" from="Rod" to="." method="_on_rod_body_entered"]
 [connection signal="timeout" from="CanBeAttackedTimer" to="." method="_on_can_be_attacked_timer_timeout"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
